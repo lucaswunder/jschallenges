@@ -25,4 +25,23 @@ module.exports = {
       return next(err);
     }
   },
+
+  async authenticate(req, res) {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      req.flash('error', 'Usuário não encontrado');
+      return res.redirect('back');
+    }
+
+    if (await bcrypt.compare(password, user.password)) {
+      req.flash('error', 'Senha incorreta');
+      return res.redirect('back');
+    }
+
+    req.session.user = user;
+    return req.session.save(() => res.redirect('app/dashboard'));
+  },
 };
