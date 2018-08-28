@@ -37,12 +37,13 @@ module.exports = {
         return res.redirect('back');
       }
 
-      if (await bcrypt.compare(password, user.password)) {
-        req.flash('error', 'Senha incorreta');
+      if (!(await bcrypt.compare(password, user.password))) {
+        req.flash('error', 'Senha inválida');
         return res.redirect('back');
       }
 
       req.session.user = user;
+
       return req.session.save(() => res.redirect('app/dashboard'));
     } catch (err) {
       return next(err);
