@@ -1,0 +1,16 @@
+{% block body %}
+<nav>
+  <div class="sessions">
+    {% for section in project.Sections %}
+      <a href="/app/project/{{activeProjectId}}/section/{{section.id}}"
+        class="{% if activeSectionId == section.id %}active{% endif %}" >
+        {{section.title}}
+      </a>
+    {% endfor %}
+  </div>
+  <form action="/app/project/{{activeProjectId}}/section/" method="post">
+    <input type="text" name="title" placeholder="Nova seção">
+    <button type="submit" class="btn"><img src="/img/plus.svg"></button>
+  </form>
+</nav>
+{% endblock%}
