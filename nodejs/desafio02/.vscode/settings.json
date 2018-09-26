@@ -1,10 +1,9 @@
 {
-  "git.ignoreLimitWarning": true,
   "run": {
     "commands": [
       {
         "name": "Run Project",
-        "singleInstance": true,
+        // "singleInstance": true,
         "color": "#f9f9f9",
         "command": "npm start"
       }

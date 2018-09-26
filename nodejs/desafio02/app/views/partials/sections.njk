@@ -7,10 +7,18 @@
         {{section.title}}
       </a>
     {% endfor %}
+    <button  data-modal-open="#new-section" class="btn">Adicionar Seção</button>
   </div>
-  <form action="/app/project/{{activeProjectId}}/section/" method="post">
-    <input type="text" name="title" placeholder="Nova seção">
-    <button type="submit" class="btn"><img src="/img/plus.svg"></button>
-  </form>
 </nav>
+  <div  class="modal" id="new-section">
+    <form method="POST" action="/app/project/{{activeProjectId}}/section" class="modal-content">
+    <h2>Criando Nova Seção</h2>
+      <input type="text" name="title" placeholder="titulo">
+      <div class="container-content">
+        <textarea name="description" class="mde" placeholder="Texto"></textarea>
+      </div>
+      <button type="submit">Salvar</button>
+      <a href="#" data-modal-close="#new-section">Cancelar</a>
+    </form>
+  </div>
 {% endblock%}

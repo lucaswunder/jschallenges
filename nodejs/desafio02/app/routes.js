@@ -33,6 +33,9 @@ routes.post('/authenticate', authController.authenticate);
 routes.get('/app/dashboard', dashController.index);
 
 // PROJ
+routes.get('/app/project', (req, res) => {
+  res.redirect('/app/dashboard');
+});
 routes.get('/app/project/:id', projectController.show);
 routes.post('/app/project', projectController.store);
 routes.delete('/app/project/:id', projectController.destroy);
@@ -40,6 +43,8 @@ routes.delete('/app/project/:id', projectController.destroy);
 // SECT
 routes.get('/app/project/:projectId/section/:sectionId', sectionController.show);
 routes.post('/app/project/:projectId/section/', sectionController.store);
+routes.put('/app/project/:projectId/section/:id', sectionController.update);
+routes.delete('/app/project/:projectId/section/:id', sectionController.destroy);
 
 routes.use((req, res) => res.render('errors/404'));
 

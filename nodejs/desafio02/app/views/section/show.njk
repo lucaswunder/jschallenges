@@ -6,20 +6,31 @@
       {% include 'partials/projectHeader.njk' %}
         <section id="content">
         {% include 'partials/sections.njk'%}
-
           <article>
             <div class="project-header">
+            <button  data-modal-open="#edit-section" class="btn">Editar</button>
               <h1>{{section.title}}</h1>
-              <form action="/app/project/{{activeProjectId}}/section/{{activeSectionId}}?_method=DELETE" method="post">
-                <a href="" type="submit" class="delete">Remover seção</a>
+              <form action="/app/project/{{activeProjectId}}/section/{{activeSectionId}}?_method=DELETE" method="POST">
+                <button  type="submit" class="btn btn-danger">Excluir seção</button>
               </form>
             </div>
-            {{ section.description }}
+            {{ section.formattedContent | safe }}
           </article>
-
         </section>
       </div>
     </section>
+  </div>
+
+  <div  class="modal" id="edit-section">
+    <form method="POST" action="/app/project/{{activeProjectId}}/section/{{section.id}}?_method=PUT" class="modal-content">
+    <h2>Criando Nova Seção</h2>
+      <input type="text" name="title" placeholder="titulo" value="{{section.title}}">
+      <div class="container-content">
+        <textarea name="description" class="mde" placeholder="Texto">{{section.description}}</textarea>
+      </div>
+      <button type="submit">Salvar</button>
+      <a href="#" data-modal-close="#edit-section">Cancelar</a>
+    </form>
   </div>
 {% endblock%}
 

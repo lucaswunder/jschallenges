@@ -23,6 +23,7 @@ module.exports = {
         project,
         activeSectionId: sectionId,
         activeProjectId: projectId,
+        username: req.session.user.name,
       });
     } catch (err) {
       return next(err);
@@ -39,6 +40,32 @@ module.exports = {
       req.flash('sucess', 'Seção criada com sucesso');
 
       return res.redirect(`/app/project/${req.params.projectId}/section/${section.id}`);
+    } catch (err) {
+      return next(err);
+    }
+  },
+
+  async update(req, res, next) {
+    try {
+      const { projectId, id } = req.params;
+      const section = await Section.findById(id);
+
+      await section.update(req.body);
+
+      req.flash('sucess', 'Seção criada com sucesso');
+
+      return res.redirect(`/app/project/${projectId}/section/${section.id}`);
+    } catch (err) {
+      return next(err);
+    }
+  },
+
+  async destroy(req, res, next) {
+    try {
+      const { projectId, id } = req.params;
+      await Section.destroy({ where: { id } });
+      req.flash('success', 'Excluido com sucesso');
+      return res.redirect(`/app/project/${projectId}`);
     } catch (err) {
       return next(err);
     }
