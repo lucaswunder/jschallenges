@@ -1,7 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import Lista from './Lista';
 import Insert from './Inserte';
+
+const Title = styled.h1`
+  color: red;
+`;
 
 class App extends React.Component {
   state = {
@@ -22,6 +27,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Title>teste</Title>
         <h1>{this.state.title}</h1>
         Change App Title <input onChange={this.setTitle} type="text" value={this.state.title} />
         <br />
