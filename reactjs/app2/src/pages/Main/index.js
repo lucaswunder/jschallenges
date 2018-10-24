@@ -1,16 +1,34 @@
 import React from "react";
 
 //import { Container } from "./styles";
-import Repositories from "../../components/Repositories";
+import Aside from "../../components/Aside";
 import Issues from "../../components/Issues";
 
-const Main = () => {
-  return (
-    <div className="main">
-      <Repositories />
-      <Issues />
-    </div>
-  );
-};
+export default class Main extends React.Component {
+  state = {
+    SelectedRepo: null
+  };
 
-export default Main;
+  handleSelectRepo = repository => {
+    this.setState({ SelectedRepo: repository });
+  };
+
+  handleRemoveRepo = id => {
+    if (this.state.SelectedRepo.id === id) {
+      this.setState({ SelectedRepo: null });
+    }
+  };
+
+  render() {
+    const { SelectedRepo } = this.state;
+    return (
+      <div className="main">
+        <Aside
+          handleSelectRepo={this.handleSelectRepo}
+          handleRemoveRepo={this.handleRemoveRepo}
+        />
+        {SelectedRepo && <Issues repository={SelectedRepo} />}
+      </div>
+    );
+  }
+}
